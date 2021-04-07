@@ -15,8 +15,11 @@
         <li :class="$route.path=='/profile'?'active':''">
           <nuxt-link class="nav-link" to="/profile">Profile</nuxt-link>
         </li>
-        <li v-for="(data,i) in nav" :key="i">
-          <nuxt-link v-if="i!=2" class="nav-link" to="/profile">{{data}}</nuxt-link>
+        <li :class="$route.path=='/modeling'?'active':''">
+          <nuxt-link class="nav-link" to="/modeling">Modeling</nuxt-link>
+        </li>
+        <li :class="$route.path=='/modelingKedua'?'active':''">
+          <nuxt-link class="nav-link" to="/modelingKedua">Modeling Kedua</nuxt-link>
         </li>
       </ul>
     </aside>
