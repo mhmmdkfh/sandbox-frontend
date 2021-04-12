@@ -15,6 +15,9 @@
         <li :class="$route.path=='/profile'?'active':''">
           <nuxt-link class="nav-link" to="/profile">Profile</nuxt-link>
         </li>
+        <li :class="$route.path=='/class'?'active':''">
+          <nuxt-link class="nav-link" to="/class">Class</nuxt-link>
+        </li>
         <li :class="$route.path=='/modeling'?'active':''">
           <nuxt-link class="nav-link" to="/modeling">Modeling</nuxt-link>
         </li>

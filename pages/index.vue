@@ -1,63 +1,79 @@
 <template>
   <div>
     <partials-title>PERTEMUAN SENIN</partials-title>
-    <input class="form-control" placeholder="A" v-model="a" />
-    <input class="form-control" placeholder="B" v-model="b" />
-    <h4 class="text-center">{{`(A : ${a}) + (B : ${b}) = ${parseInt(a)+ parseInt(b)}`}}</h4>
-    <h5>{{route}}</h5>
+    <center>{{i}}</center>
+    <center>{{cobaPublish()}}</center>
+    <hr>
+    <form-input name="Nama" :val="fullname" @value="(val)=>this.fullname=val" />
+    {{fullname}}
+    <hr>
+    <input type="text" class="form-control" v-model="fullname">
+    {{firstname}}
+    <br>
+    {{lastname}}
+    <hr>
+    <input type="text" class="form-control" v-model="question">
+    <p>{{ answer }}</p>
 
-    <input class="form-control" placeholder="A" v-model="variableA" />
-    <input class="form-control" placeholder="B" v-model="variableB" />
-    <h4 class="text-center">{{`(A : ${variableA}) + (B : ${variableB}) = ${parseInt(variableA)+ parseInt(variableB)}`}}</h4>
-
-    <select v-model="dataSelect" class="custom-select">
-      <option selected value="">Provinsi</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <h4 class="text-center">{{dataSelect}}</h4>
-
-    <select v-model="dataSelect2" class="custom-select">
-      <option selected value="">Kota {{dataSelect}}</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </select>
-    <h4 class="text-center">{{dataSelect2}}</h4>
-
+    <atoms-float-button @click.native="increment" />
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
-  asyncData({
-    isDev,
-    route,
-    store,
-    env,
-    params,
-    query,
-    req,
-    res,
-    redirect,
-    error,
-  }) {
-    console.log("INI ASYNC DATA");
+  data() {
     return {
-      route: route.path,
-      variableA: 0,
-      variableB: 0,
+      i: 0,
+      books: ["vue 1", "vue 2", "vue 3"],
+      firstname: "Ghany",
+      lastname: "Ersa",
+      question: "",
+      answer: "Questions usually contain a question mark. ;-)",
     };
   },
-  data() {
-    console.log("INI DATA");
-
-    return {
-      dataSelect: "",
-      dataSelect2: "",
-      a: 0,
-      b: 0,
-    };
+  watch: {
+    // whenever question changes, this function will run
+    question(newQuestion, oldQuestion) {
+      if (newQuestion.indexOf("?") > -1) {
+        this.getAnswer();
+      }
+    },
+  },
+  computed: {
+    getBookPublish() {
+      this.increment();
+      return this.i > 3 ? "yes" : "no";
+    },
+    fullname: {
+      get() {
+        if (!this.firstname && !this.lastname) return "";
+        return this.firstname + " " + this.lastname;
+      },
+      set(value) {
+        const names = value.split(" ");
+        this.firstname = names[0];
+        this.lastname = names[names.length - 1];
+      },
+    },
+  },
+  methods: {
+    increment() {
+      this.i++;
+    },
+    cobaPublish() {
+      return this.i > 3 ? "yes" : "no";
+    },
+    getAnswer() {
+      this.answer = "Thinking...";
+      axios
+        .get("https://yesno.wtf/api")
+        .then((response) => {
+          this.answer = response.data.answer;
+        })
+        .catch((error) => {
+          this.answer = "Error! Could not reach the API. " + error;
+        });
+    },
   },
 };
 </script>
