@@ -1,21 +1,17 @@
 <template>
   <div>
     <partials-title>PERTEMUAN SENIN</partials-title>
-    <center>{{i}}</center>
-    <center>{{cobaPublish()}}</center>
-    <hr>
-    <form-input name="Nama" :val="fullname" @value="(val)=>this.fullname=val" />
-    {{fullname}}
-    <hr>
-    <input type="text" class="form-control" v-model="fullname">
-    {{firstname}}
-    <br>
-    {{lastname}}
-    <hr>
-    <input type="text" class="form-control" v-model="question">
-    <p>{{ answer }}</p>
-
     <atoms-float-button @click.native="increment" />
+    <atoms-card>
+      <template v-slot:left>
+        <h1>{{fullname}}</h1>
+      </template>
+      <template v-slot:right>
+        <FormInput name="Firstname" :val="firstname" @value="(val)=>firstname=val" />
+        <FormInput name="Lastname" :val="lastname" @value="(val)=>lastname=val" />
+      </template>
+    </atoms-card>
+    <atoms-card></atoms-card>
   </div>
 </template>
 <script>
@@ -44,16 +40,8 @@ export default {
       this.increment();
       return this.i > 3 ? "yes" : "no";
     },
-    fullname: {
-      get() {
-        if (!this.firstname && !this.lastname) return "";
-        return this.firstname + " " + this.lastname;
-      },
-      set(value) {
-        const names = value.split(" ");
-        this.firstname = names[0];
-        this.lastname = names[names.length - 1];
-      },
+    fullname() {
+      return this.firstname + " " + this.lastname;
     },
   },
   methods: {
