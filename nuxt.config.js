@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "projek ku",
+    title: "Sandbox Frontend",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -34,6 +34,10 @@ export default {
           "https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"
       },
       {
+        src:
+          "https://cdn.jsdelivr.net/npm/sweetalert"
+      },
+      {
         src: "/js/stisla.js"
       },
       {
@@ -60,7 +64,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     // https://go.nuxtjs.dev/pwa
-    "@nuxtjs/pwa"
+    "@nuxtjs/pwa",
+    "vue-sweetalert2/nuxt"
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
